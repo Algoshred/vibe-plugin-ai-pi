@@ -6,7 +6,11 @@
  */
 
 import { Elysia } from "elysia";
-import type { HostServices, VibePlugin, ProfileContext } from "@vibecontrols/plugin-sdk";
+import type {
+  HostServices,
+  VibePlugin,
+  ProfileContext,
+} from "@vibecontrols/plugin-sdk";
 import {
   BoundLogger,
   ProviderRegistry,
@@ -461,6 +465,13 @@ function createPrereqsRoutes() {
           pendingSudo: [],
           errors: [],
         };
+      // Pi (Inflection AI, https://pi.ai/) is a consumer conversational
+      // assistant with NO official, vendor-supported `pi` CLI binary and no
+      // non-interactive install method. We deliberately do NOT auto-install an
+      // unrelated third-party tool that happens to share the `pi` command name
+      // (e.g. the earendil-works coding agent at pi.dev) — that would silently
+      // bind this provider to a different upstream. Return an actionable error
+      // instead of pretending success.
       return {
         ok: false,
         installed: [],
@@ -468,7 +479,11 @@ function createPrereqsRoutes() {
         errors: [
           {
             name: CLI_COMMAND,
-            message: `Install ${DISPLAY} CLI from its vendor instructions and retry.`,
+            message:
+              `${DISPLAY} (Inflection AI, https://pi.ai/) does not ship an ` +
+              `official command-line tool, so there is no supported automatic ` +
+              `install. Provide a 'pi'-compatible CLI on PATH (one that accepts ` +
+              `'pi --print <prompt>') and retry, or use a different AI provider plugin.`,
           },
         ],
       };
