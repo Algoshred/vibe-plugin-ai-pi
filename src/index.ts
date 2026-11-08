@@ -185,15 +185,14 @@ class ProviderImpl implements AIAgentProvider {
   readonly name = PROVIDER_NAME;
   private sessions = new Map<string, ManagedSession>();
   private logIngester: LogIngester | null = null;
-  private hostServices: HostServices | null = null;
   private logger: BoundLogger | null = null;
 
   setHostServices(hs: HostServices) {
-    this.hostServices = hs;
     this.logger = new BoundLogger(hs.logger, `${PROVIDER_NAME}-provider`);
     const registry = new ProviderRegistry(hs);
     this.logIngester =
       registry.getProvider<LogIngester>("ai", "log-ingester") ?? null;
+    this.log("debug", "host services attached");
   }
 
   async createSession(config: AISessionConfig): Promise<AISession> {
