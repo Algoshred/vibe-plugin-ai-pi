@@ -56,10 +56,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/algoshred/vibe-plugin-ai-pi.git"
+    "url": "git+https://github.com/Algoshred/vibe-plugin-ai-pi.git"
   },
   "bugs": {
-    "url": "https://github.com/algoshred/vibe-plugin-ai-pi/issues"
+    "url": "https://github.com/Algoshred/vibe-plugin-ai-pi/issues"
   },
   "publishConfig": {
     "access": "public",
